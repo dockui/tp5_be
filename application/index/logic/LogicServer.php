@@ -135,6 +135,10 @@ class LogicServer
     	$sid = utils::ARR_VAL($params, 'sid');
     	$vid = (int)utils::ARR_VAL($params, 'vid');
     	$num = (int)utils::ARR_VAL($params, 'num');
+    	if (!$num)
+    	{
+    		$num = (int)utils::ARR_VAL($params, 'player');
+    	}
 
     	if (!self::_isLogined($sid))
     	{

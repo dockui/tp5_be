@@ -89,13 +89,14 @@ abstract class utils {
 		static $guid = '';
 		$uid = uniqid("", true);
 		$data = $namespace;
-		$data .= $_SERVER['REQUEST_TIME'];
-		$data .= $_SERVER['HTTP_USER_AGENT'];
-		// $data .= $_SERVER['LOCAL_ADDR'];
-		// $data .= $_SERVER['LOCAL_PORT'];
-		// $data .= $_SERVER['REMOTE_ADDR'];
-		// $data .= $_SERVER['REMOTE_PORT'];
+		$data .= self::ARR_VAL($_SERVER, 'REQUEST_TIME');
+		$data .= self::ARR_VAL($_SERVER, 'HTTP_USER_AGENT');
+		$data .= self::ARR_VAL($_SERVER, 'LOCAL_ADDR');
+		$data .= self::ARR_VAL($_SERVER, 'LOCAL_PORT');
+		$data .= self::ARR_VAL($_SERVER, 'REMOTE_ADDR');
+		$data .= self::ARR_VAL($_SERVER, 'REMOTE_PORT');
 		$hash = (hash('ripemd128', $uid . $guid . md5($data)));
+
 		// $guid = '{' .  
 		// substr($hash, 0, 8) . 
 		// '-' .
