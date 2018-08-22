@@ -1,5 +1,10 @@
 <?php
 namespace app\index\controller;
+use think\facade\Cache;
+use think\facade\Log;
+
+use app\index\model\User;
+use app\index\logic\LogicServer;
 
 class IndexController
 {
@@ -15,9 +20,14 @@ class IndexController
 
     public function api($name = 'ThinkPHP5')
     {
-    	if (request()->has('params','get')){
-    		return request()->param('params');
-    	}
-        return Json(array("code"=>"厅工"));
+
+        $logic = new LogicServer('d');
+        return $logic->process();
+        // $tmp = Cache::handler()->hgetall("66137:roomid");
+        // return (json($tmp));
+
+        // $user = User::get(1);
+
+        // return gettype($user);
     }
 }
