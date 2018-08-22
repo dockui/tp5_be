@@ -92,7 +92,7 @@ class LogicServer
 	        	}
 	        }
 
-    	    return Pack::output(LogicCmd::RES_LOGIN, array('uid'=>($user)));
+    	    return Pack::output(LogicCmd::RES_LOGIN, $userCache);
 
     	} while(false);
         
@@ -144,6 +144,16 @@ class LogicServer
     	$uid = (int)Cache::handler()->get(utils::SID($sid));
     	$userCache = utils::getUser($uid);
 
+    	$roomid_cur = (int)utils::ARR_VAL($userCache, 'inroomid');
+    	if ($roomid_cur)
+    	{
+    		$inroom_info_cur = utils::getRoom($roomid_cur);
+	    	if (!empty($inroom_info_cur))
+	    	{
+	    		return Pack::output_fail(LogicCode::ERR_ALREADY_IN_ROOM);
+	    	}
+    	}
+
     	$gold_need = 2;
     	$gold_curr = utils::ARR_VAL($userCache, 'gold');
     	if (!$gold_curr || $gold_curr < $gold_need)
@@ -168,7 +178,9 @@ class LogicServer
     	Cache::handler()->hmset(utils::ROOM_ID($roomid), $roominfo);
     	Cache::handler()->expire(utils::ROOM_ID($roomid), 24*3600);
 
-    	return Pack::output($roominfo);
+    	$params = array_merge($params, array('roomid' => $roomid));
+    	return self::join_room($params);
+    	// return Pack::output($roominfo);
     }
 
     function join_room($params)
@@ -192,10 +204,13 @@ class LogicServer
     	$userCache = utils::getUser($uid);
 
     	$roomid_cur = (int)utils::ARR_VAL($userCache, 'inroomid');
-
     	if ($roomid_cur && $roomid_cur !== $roomid)
     	{
-    		return Pack::output_fail(LogicCode::ERR_ALREADY_IN_ROOM);
+    		$inroom_info_cur = utils::getRoom($roomid_cur);
+	    	if (!empty($inroom_info_cur))
+	    	{
+	    		return Pack::output_fail(LogicCode::ERR_ALREADY_IN_ROOM);
+	    	}
     	}
 
     	$inroom_info = $roomid ? utils::getRoom($roomid) : 0;
