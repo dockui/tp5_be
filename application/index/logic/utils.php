@@ -37,7 +37,7 @@ abstract class utils {
 		return $info;
 	}
 
-	static function cvtToInt($arr, $key)
+	static function cvtToInt(&$arr, $key)
 	{
 		if (isset($arr[$key])){
 			$arr[$key] = (int)($arr[$key]);

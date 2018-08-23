@@ -3,8 +3,8 @@ namespace app\index\logic;
 use think\facade\Cache;
 use think\facade\Log;
 
-require("cmd.php");
-require("pack.php");
+// require("cmd.php");
+// require("pack.php");
 
 use app\index\model\User;
 
@@ -13,6 +13,12 @@ class LogicServer
 {
 	function __construct($name) {
         $this->name=$name;
+
+    }
+    
+    function test($arr)
+    {
+        $arr['name'] = 2;
     }
 
 	function process()
