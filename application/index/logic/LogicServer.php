@@ -73,7 +73,8 @@ class LogicServer
 						'uid' => $uid,
 						'sid' =>$sid,
 						'gold' => 200,
-						'name' => $user->name
+						'name' => $user->name,
+                        'avatar' => urlencode("http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eoiaTFQcOicxnTsjibvD5KCOzQs8tV3DNa6tuEnJCjgZC0IhmPj0jxARZBaYbqH5n8TnbLzO40D1A2YA/96")
 						));
 	        }
 	        $userCache = utils::getUser($uid);
