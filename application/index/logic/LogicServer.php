@@ -7,7 +7,7 @@ use think\facade\Log;
 // require("pack.php");
 
 use app\index\model\User;
-
+use app\index\logic\LogicCode;
 
 class LogicServer
 {
