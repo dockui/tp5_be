@@ -18,7 +18,9 @@ abstract class utils {
 		self::cvtToInt($info, 'roomid');
 		self::cvtToInt($info, 'vid');
 		self::cvtToInt($info, 'num');
-
+		$info['show_num'] = $info['roomid'];
+		$info['room_num'] = $info['roomid'];
+		
 		if (!isset($info['num']))
 		{
 			$info['num'] = 4;
@@ -50,6 +52,7 @@ abstract class utils {
 		$user = Cache::handler()->hgetall(self::UID($id));
 		if (isset($user['uid'])){
 			$user['uid'] = (int)($user['uid']);
+			$user['id'] = (int)($user['uid']);
 		}
 		if (isset($user['gold'])){
 			$user['gold'] = (int)($user['gold']);

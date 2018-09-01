@@ -113,6 +113,27 @@ class LogicServer
     	// return json($params);
     }
 
+    function GetInfo($params)
+    {
+        $cmd = (int)utils::ARR_VAL($params, 'cmd');
+        $sid = utils::ARR_VAL($params, 'sid');
+        $uid_to_get = (int)utils::ARR_VAL($params, 'uid');
+        
+        if (!self::_isLogined($sid))
+        {
+            return Pack::output_fail(LogicCode::ERR_VERIFY_FAILURE);
+        }
+
+        // $uid = (int)Cache::handler()->get(utils::SID($sid));
+
+        $userCache = utils::getUser($uid_to_get);
+        if (empty($userCache))
+        {
+            return Pack::output_fail(LogicCode::ERR_NOT_EXIST_USER);
+        }
+        return Pack::output($userCache);
+    }
+
 	function _isLogined($sid)
     {
         $uid = (int)Cache::handler()->get(utils::SID($sid));
